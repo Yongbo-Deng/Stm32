@@ -1,4 +1,4 @@
-.\objects\key.o: Hardware\Key.c
+.\objects\key.o: ..\STM32DEMO\Hardware\Key.c
 .\objects\key.o: .\Start\stm32f10x.h
 .\objects\key.o: .\Start\core_cm3.h
 .\objects\key.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
