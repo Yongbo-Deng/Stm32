@@ -15,11 +15,13 @@ void PWM_Init(void) {
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 	
+	TIM_InternalClockConfig(TIM2);
+	
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStruct;
 	TIM_TimeBaseInitStruct.TIM_ClockDivision = TIM_CKD_DIV1;
 	TIM_TimeBaseInitStruct.TIM_CounterMode = TIM_CounterMode_Up;
-	TIM_TimeBaseInitStruct.TIM_Period = 100 - 1;
-	TIM_TimeBaseInitStruct.TIM_Prescaler = 720 - 1;  //Count to 1s
+	TIM_TimeBaseInitStruct.TIM_Period = 100 - 1;	//ARR
+	TIM_TimeBaseInitStruct.TIM_Prescaler = 720 - 1;  //PSC
 	TIM_TimeBaseInitStruct.TIM_RepetitionCounter = 0;
 	TIM_TimeBaseInit(TIM2, &TIM_TimeBaseInitStruct);
 	
