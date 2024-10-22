@@ -1,5 +1,5 @@
 #include "stm32f10x.h"                  // Device header
-
+#include "Delay.h"
 uint16_t Count;
 
 void CountSensor_Init(void) {

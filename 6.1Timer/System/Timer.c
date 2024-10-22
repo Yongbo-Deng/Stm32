@@ -7,7 +7,7 @@ void Timer_Init(void) {
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStruct;
 	TIM_TimeBaseInitStruct.TIM_ClockDivision = TIM_CKD_DIV1;
 	TIM_TimeBaseInitStruct.TIM_CounterMode = TIM_CounterMode_Up;
-	TIM_TimeBaseInitStruct.TIM_Period = 10000 - 1;
+	TIM_TimeBaseInitStruct.TIM_Period = 100 - 1;
 	TIM_TimeBaseInitStruct.TIM_Prescaler = 7200 - 1;  //Count to 1s
 	TIM_TimeBaseInitStruct.TIM_RepetitionCounter = 0;
 	TIM_TimeBaseInit(TIM2, &TIM_TimeBaseInitStruct);

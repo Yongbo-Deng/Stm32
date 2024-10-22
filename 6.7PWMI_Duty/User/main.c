@@ -14,7 +14,7 @@ int main(void)
 	IC_Init();
 	
 	PWM_SetPrescaler(720 -1);		//Freqy = 1kHz
-	PWM_SetCompare1(50);			//Duty = 50%
+	PWM_SetCompare1(59);			//Duty = 50%
 	OLED_ShowString(1, 1, "Freq:00000Hz");
 	OLED_ShowString(1, 1, "Duty:00%");
 	
@@ -24,7 +24,7 @@ int main(void)
 		Freq = IC_GetFreq();
 		Duty = IC_GetDuty();
 		OLED_ShowNum(1, 6, Freq, 5);
-		OLED_ShowNum(2, 6, Freq, 2);
+		OLED_ShowNum(2, 6, Duty, 2);
 	}
 }
 

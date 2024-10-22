@@ -1,4 +1,4 @@
-.\objects\countsensor.o: ..\STM32DEMO\Hardware\CountSensor.c
+.\objects\countsensor.o: Hardware\CountSensor.c
 .\objects\countsensor.o: .\Start\stm32f10x.h
 .\objects\countsensor.o: .\Start\core_cm3.h
 .\objects\countsensor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h

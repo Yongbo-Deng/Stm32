@@ -12,12 +12,13 @@ int main(void)
 {
 	OLED_Init();
 	Servo_Init();
-	Servo_SetAngle(0);
+	Key_Init();
+	
 	OLED_ShowString(1, 1, "Angle:");
 	
 	while (1)
 	{
-		KeyNum = Key_getNum();
+		KeyNum = Key_GetNum();
 		if (KeyNum == 1) {
 			Angle += 30;
 			if (Angle > 180) {

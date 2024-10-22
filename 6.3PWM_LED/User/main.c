@@ -9,6 +9,7 @@ int main(void)
 {
 	OLED_Init();
 	PWM_Init();
+	OLED_ShowString(1, 1, "PWM LED");
 
 	while (1)
 	{

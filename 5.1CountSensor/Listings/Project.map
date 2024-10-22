@@ -1231,7 +1231,7 @@ Memory Map of the image
     0x08000a1a   0x08000a1a   0x00000002   PAD
     0x08000a1c   0x08000a1c   0x00000060   Code   RO           27    i.SystemInit        system_stm32f10x.o
     0x08000a7c   0x08000a7c   0x00000004   Code   RO         3607    i.UsageFault_Handler  stm32f10x_it.o
-    0x08000a80   0x08000a80   0x00000030   Code   RO         3578    i.main              main.o
+    0x08000a80   0x08000a80   0x00000030   Code   RO         3581    i.main              main.o
     0x08000ab0   0x08000ab0   0x000005f0   Data   RO         3376    .constdata          oled.o
     0x080010a0   0x080010a0   0x00000020   Data   RO         3821    Region$$Table       anon$$obj.o
 

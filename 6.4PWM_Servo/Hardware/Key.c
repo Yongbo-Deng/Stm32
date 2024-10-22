@@ -11,7 +11,7 @@ void Key_Init(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 }
-uint8_t Key_getNum(void) {
+uint8_t Key_GetNum(void) {
 	
 	uint8_t keyNum = 0;
 	if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_1) == 0)

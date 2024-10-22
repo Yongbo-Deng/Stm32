@@ -38,7 +38,7 @@ void Encoder_Init(void) {
 
 
 uint16_t Encoder_Get(void) {
-	static int16_t Temp;  //Necessarity of using Temp?
+	static int16_t Temp;  
 	Temp = Encoder_Count;
 	Encoder_Count = 0;
 	return Temp;
@@ -47,11 +47,10 @@ uint16_t Encoder_Get(void) {
 //Counterclockwise: DT pin1 to go low first, and then the CLK pin0 goes low too.
 void EXTI0_IRQHandler(void) {	
 	if (EXTI_GetITStatus(EXTI_Line0) == SET) {
-		if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_1) == 0) {   
-			//if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_1) == 0)
-			//{
+		if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_0) == 0) {   
+			if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_1) == 0) {
 				Encoder_Count--;
-			//}
+			}
 		}
 	}
 	EXTI_ClearITPendingBit(EXTI_Line0);
@@ -60,11 +59,10 @@ void EXTI0_IRQHandler(void) {
 //Clockwise: CLK pin0 to go low first, and then the DT pin1 goes low too.
 void EXTI1_IRQHandler(void) {	
 	if (EXTI_GetITStatus(EXTI_Line1) == SET) {
-		if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_0) == 0) {
-			//if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_0) == 0)
-			//{
-				Encoder_Count--;
-			//}
+		if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_1) == 0) {
+			if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_0) == 0){
+				Encoder_Count++;
+			}
 		}
 	}
 	EXTI_ClearITPendingBit(EXTI_Line1);
