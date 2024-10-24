@@ -23,7 +23,6 @@ int main(void) {
 		OLED_ShowNum(2, 5, AD1, 4);
 		OLED_ShowNum(3, 5, AD2, 4);
 		OLED_ShowNum(4, 5, AD3, 4);
-
 		Delay_ms(100);
 
 	}
