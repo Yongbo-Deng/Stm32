@@ -2,7 +2,6 @@
 #include "Delay.h"
 #include "OLED.h"
 
-
 int main(void)
 {
 	OLED_Init();
@@ -13,8 +12,8 @@ int main(void)
 	OLED_ShowSignedNum(2, 7, -66, 2);
 	OLED_ShowHexNum(3, 1, 0xAA55, 4);
 	OLED_ShowBinNum(4, 1, 0xAA55, 16);
-
-	while (1)
-	{
+	
+	while (1){
+		
 	}
 }
