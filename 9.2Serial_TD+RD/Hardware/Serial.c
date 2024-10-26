@@ -50,12 +50,6 @@ void Serial_SendArray(uint8_t *Array, uint16_t Length) {
     for(uint16_t i = 0; i < Length; i++) {
         Serial_SendByte(Array[i]);
     }
-
-    /* while(Length) {
-        USART_SendData(USART1, *Array);
-        Array ++;
-        Length --;
-    } */
 }
 
 void Serial_SendString(char *String) {
@@ -70,7 +64,7 @@ void Serial_SendNumber(uint32_t Number, uint8_t Length) {
     }
 }
 
-int fputc(int ch, FILE *f) {
+int fputc(int ch, FILE *f) {    //Override printf function.
     Serial_SendByte(ch);
     return ch;
 }

@@ -2,8 +2,10 @@
 #include "stdio.h"
 #include "stdarg.h"
 
-uint16_t Serial_RxData;
-uint8_t Serial_RxFlag;
+uint8_t Serial_TxPacket[4];
+uint8_t Serial_RxPacket[4];
+static uint8_t Serial_RxFlag = 0;
+
 
 void Serial_Init(void) {
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
@@ -50,12 +52,6 @@ void Serial_SendArray(uint8_t *Array, uint16_t Length) {
     for(uint16_t i = 0; i < Length; i++) {
         Serial_SendByte(Array[i]);
     }
-
-    /* while(Length) {
-        USART_SendData(USART1, *Array);
-        Array ++;
-        Length --;
-    } */
 }
 
 void Serial_SendString(char *String) {
@@ -70,7 +66,7 @@ void Serial_SendNumber(uint32_t Number, uint8_t Length) {
     }
 }
 
-int fputc(int ch, FILE *f) {
+int fputc(int ch, FILE *f) {    //Override printf function.
     Serial_SendByte(ch);
     return ch;
 }
@@ -92,15 +88,40 @@ uint8_t Serial_GetRxFlag(void) {
     return 0;
 }
 
-uint16_t Serial_GetRxData(void) {
-    return Serial_RxData;
-}
-
 void USART1_IRQHandler(void) {
-	if (USART_GetITStatus(USART1, USART_IT_RXNE) == SET) {
-        Serial_RxData = USART_ReceiveData(USART1);
-        Serial_RxFlag = 1;
-        // USART_ClearITPendingBit(USART1, USART_IT_RXNE);     //Auto clear after reading DR
+    static uint8_t RxState = 0;
+    static uint8_t pRxPacket = 0;
+    if (USART_GetITStatus(USART1, USART_IT_RXNE) == SET) {
+        uint8_t RxData = USART_ReceiveData(USART1);
+        switch (RxState) {
+        case 0: //Waiting for head sign.
+            if (RxData == 0xFF) {
+                RxState = 1;
+                pRxPacket = 0;
+            }
+            break;
+        case 1: //Reciving data.
+            Serial_RxPacket[pRxPacket] = RxData;
+            pRxPacket ++;
+            if (pRxPacket >= 4) {
+                RxState = 2;
+            }
+            break;
+        case 2: //Waiting for tail sign.
+            if (RxData == 0xFE) {
+                RxState = 0;
+                Serial_RxFlag = 1;
+            }
+            break;
+        default:
+            break;
+        }
     }
+
 }
 
+void Serial_SendPacket(void) {
+    Serial_SendByte(0xFF);
+    Serial_SendArray(Serial_TxPacket, 4);
+    Serial_SendByte(0xFE);
+}
