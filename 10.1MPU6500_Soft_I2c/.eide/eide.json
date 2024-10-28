@@ -210,6 +210,18 @@
           },
           {
             "path": "Hardware/OLED_Font.h"
+          },
+          {
+            "path": "Hardware/MPU6500.c"
+          },
+          {
+            "path": "Hardware/MPU6500.h"
+          },
+          {
+            "path": "Hardware/MyI2C.c"
+          },
+          {
+            "path": "Hardware/MyI2C.h"
           }
         ],
         "folders": []
