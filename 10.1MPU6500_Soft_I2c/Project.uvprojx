@@ -704,6 +704,31 @@
               <FileType>5</FileType>
               <FilePath>.\Hardware\OLED_Font.h</FilePath>
             </File>
+            <File>
+              <FileName>MPU6500.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\MPU6500.c</FilePath>
+            </File>
+            <File>
+              <FileName>MPU6500.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\MPU6500.h</FilePath>
+            </File>
+            <File>
+              <FileName>MPU6500_Reg.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\MPU6500_Reg.h</FilePath>
+            </File>
+            <File>
+              <FileName>MyI2C.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\MyI2C.c</FilePath>
+            </File>
+            <File>
+              <FileName>MyI2C.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\MyI2C.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -740,5 +765,14 @@
     <components/>
     <files/>
   </RTE>
+
+  <LayerInfo>
+    <Layers>
+      <Layer>
+        <LayName>Project</LayName>
+        <LayPrjMark>1</LayPrjMark>
+      </Layer>
+    </Layers>
+  </LayerInfo>
 
 </Project>

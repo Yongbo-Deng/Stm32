@@ -1,20 +1,27 @@
 #include "stm32f10x.h"                  // Device header
 #include "Delay.h"
 #include "OLED.h"
-#include "MyI2C.h"
+#include "MPU6500.h"
+
+int16_t AX, AY, AZ, GX, GY, GZ;
 
 int main(void)
 {
 	OLED_Init();
 	
-	OLED_ShowChar(1, 1, 'A');
-	OLED_ShowString(1, 3, "HelloWorld!");
-	OLED_ShowNum(2, 1, 12345, 5);
-	OLED_ShowSignedNum(2, 7, -66, 2);
-	OLED_ShowHexNum(3, 1, 0xAA55, 4);
-	OLED_ShowBinNum(4, 1, 0xAA55, 16);
+	MPU6500_Init();
+
+
+	OLED_ShowString(1, 1, "ID:");
+	OLED_ShowHexNum(1, 4, MPU6500_GetID(), 2);
 	
 	while (1){
-		
+		MPU6500_GetData(&AX, &AY, &AZ, &GX, &GY, &GZ);
+		OLED_ShowSignedNum(2, 1, AX, 5);
+		OLED_ShowSignedNum(2, 8, GX, 5);
+		OLED_ShowSignedNum(3, 1, AY, 5);
+		OLED_ShowSignedNum(3, 8, GY, 5);
+		OLED_ShowSignedNum(4, 1, AZ, 5);
+		OLED_ShowSignedNum(4, 8, GZ, 5);
 	}
 }
