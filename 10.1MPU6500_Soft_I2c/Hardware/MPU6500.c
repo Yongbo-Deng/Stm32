@@ -48,30 +48,21 @@ uint8_t MPU6500_GetID(void) {
 }
 
 void MPU6500_GetData(int16_t *AccX, int16_t *AccY, int16_t *AccZ, int16_t *GyroX, int16_t *GyroY, int16_t *GyroZ) {
-    uint8_t DataH, DataL;
+	*AccX = MPU6500_ReadReg(MPU6500_ACCEL_XOUT_H) << 8;     //High 8 digits.
+	*AccX |= MPU6500_ReadReg(MPU6500_ACCEL_XOUT_L);         //Low 9 digits.
 	
-	DataH = MPU6500_ReadReg(MPU6500_ACCEL_XOUT_H);
-	DataL = MPU6500_ReadReg(MPU6500_ACCEL_XOUT_L);
-	*AccX = (DataH << 8) | DataL;
+	*AccY = MPU6500_ReadReg(MPU6500_ACCEL_YOUT_H) << 8;
+	*AccY |= MPU6500_ReadReg(MPU6500_ACCEL_YOUT_L);
 	
-	DataH = MPU6500_ReadReg(MPU6500_ACCEL_YOUT_H);
-	DataL = MPU6500_ReadReg(MPU6500_ACCEL_YOUT_L);
-	*AccY = (DataH << 8) | DataL;
+	*AccZ = MPU6500_ReadReg(MPU6500_ACCEL_ZOUT_H) << 8;
+	*AccZ |= MPU6500_ReadReg(MPU6500_ACCEL_ZOUT_L);
 	
-	DataH = MPU6500_ReadReg(MPU6500_ACCEL_ZOUT_H);
-	DataL = MPU6500_ReadReg(MPU6500_ACCEL_ZOUT_L);
-	*AccZ = (DataH << 8) | DataL;
+	*GyroX = MPU6500_ReadReg(MPU6500_GYRO_XOUT_H) << 8;
+	*GyroX |= MPU6500_ReadReg(MPU6500_GYRO_XOUT_L);
 	
-	DataH = MPU6500_ReadReg(MPU6500_GYRO_XOUT_H);
-	DataL = MPU6500_ReadReg(MPU6500_GYRO_XOUT_L);
-	*GyroX = (DataH << 8) | DataL;
+	*GyroY = MPU6500_ReadReg(MPU6500_GYRO_YOUT_H) << 8;
+	*GyroY = MPU6500_ReadReg(MPU6500_GYRO_YOUT_L);
 	
-	DataH = MPU6500_ReadReg(MPU6500_GYRO_YOUT_H);
-	DataL = MPU6500_ReadReg(MPU6500_GYRO_YOUT_L);
-	*GyroY = (DataH << 8) | DataL;
-	
-	DataH = MPU6500_ReadReg(MPU6500_GYRO_ZOUT_H);
-	DataL = MPU6500_ReadReg(MPU6500_GYRO_ZOUT_L);
-	*GyroZ = (DataH << 8) | DataL;
-
+	*GyroZ = MPU6500_ReadReg(MPU6500_GYRO_ZOUT_H) << 8;
+	*GyroZ |= MPU6500_ReadReg(MPU6500_GYRO_ZOUT_L);
 }
