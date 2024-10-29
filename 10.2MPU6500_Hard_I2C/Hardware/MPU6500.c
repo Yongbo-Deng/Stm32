@@ -3,19 +3,25 @@
 
 #define MPU6500_ADDRESS 0xD0        //Salve address
 
+void MPU6500_WaitEvent(I2C_TypeDef* I2Cx, uint32_t I2C_EVENT) {     //While timeout break;
+    uint16_t Timeout = 10000;
+    while(I2C_CheckEvent(I2Cx, I2C_EVENT) != SUCCESS && Timeout != 0) {
+        Timeout --;
+    }
+}
 
 void MPU6500_WriteReg(uint8_t RegAddress, uint8_t Data) {
     I2C_GenerateSTART(I2C2, ENABLE);
-    while(I2C_CheckEvent(I2C2, I2C_EVENT_MASTER_MODE_SELECT) != SUCCESS);
+    MPU6500_WaitEvent(I2C2, I2C_EVENT_MASTER_MODE_SELECT);
 
     I2C_Send7bitAddress(I2C2, MPU6500_ADDRESS, I2C_Direction_Transmitter);
-    while(I2C_CheckEvent(I2C2, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED) != SUCCESS);
+    MPU6500_WaitEvent(I2C2, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED);
 
     I2C_SendData(I2C2, RegAddress);
-    while(I2C_CheckEvent(I2C2, I2C_EVENT_MASTER_BYTE_TRANSMITTING) != SUCCESS);
+    MPU6500_WaitEvent(I2C2, I2C_EVENT_MASTER_BYTE_TRANSMITTING);
 
     I2C_SendData(I2C2, Data);
-    while(I2C_CheckEvent(I2C2, I2C_EVENT_MASTER_BYTE_TRANSMITTED) != SUCCESS);
+    MPU6500_WaitEvent(I2C2, I2C_EVENT_MASTER_BYTE_TRANSMITTED);
 
     I2C_GenerateSTOP(I2C2, ENABLE);
 }
@@ -23,27 +29,27 @@ void MPU6500_WriteReg(uint8_t RegAddress, uint8_t Data) {
 uint8_t MPU6500_ReadReg(uint8_t RegAddress) {
     uint8_t Data;
     I2C_GenerateSTART(I2C2, ENABLE);
-    while(I2C_CheckEvent(I2C2, I2C_EVENT_MASTER_MODE_SELECT) != SUCCESS);
+    MPU6500_WaitEvent(I2C2, I2C_EVENT_MASTER_MODE_SELECT);
 
     I2C_Send7bitAddress(I2C2, MPU6500_ADDRESS, I2C_Direction_Transmitter);
-    while(I2C_CheckEvent(I2C2, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED) != SUCCESS);
+    MPU6500_WaitEvent(I2C2, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED);
     
     I2C_SendData(I2C2, RegAddress);
-    while(I2C_CheckEvent(I2C2, I2C_EVENT_MASTER_BYTE_TRANSMITTED) != SUCCESS);
+    MPU6500_WaitEvent(I2C2, I2C_EVENT_MASTER_BYTE_TRANSMITTED);
 
     I2C_GenerateSTART(I2C2, ENABLE);
-    while(I2C_CheckEvent(I2C2, I2C_EVENT_MASTER_MODE_SELECT) != SUCCESS);
+    MPU6500_WaitEvent(I2C2, I2C_EVENT_MASTER_MODE_SELECT);
 
     I2C_Send7bitAddress(I2C2, MPU6500_ADDRESS, I2C_Direction_Receiver);
-    while(I2C_CheckEvent(I2C2, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED) != SUCCESS);
+    MPU6500_WaitEvent(I2C2, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED);
 
-    I2C_AcknowledgeConfig(I2C2, DISABLE);   //When recieving the last Byte, pre-clear Ack (Ack = 0).
+    I2C_AcknowledgeConfig(I2C2, DISABLE);   //When recieving the last Byte, pre-disable (Ack = 1).
     I2C_GenerateSTOP(I2C2, ENABLE);         //And request for stop.
 
-    while(I2C_CheckEvent(I2C2, I2C_EVENT_MASTER_BYTE_RECEIVED) != SUCCESS);
+    MPU6500_WaitEvent(I2C2, I2C_EVENT_MASTER_BYTE_RECEIVED);
     Data = I2C_ReceiveData(I2C2);   //Read DR.
     
-    I2C_AcknowledgeConfig(I2C2, ENABLE);   //Restored to 1.
+    I2C_AcknowledgeConfig(I2C2, ENABLE);   //Restored to enable (Ack = 0).
 
     return Data;
 
