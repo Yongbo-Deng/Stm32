@@ -251,7 +251,7 @@
   },
   "outDir": "build",
   "deviceName": "STM32F103C8",
-  "packDir": ".pack/Keil/STM32F1xx_DFP.2.2.0",
+  "packDir": ".pack/Keil/STM32F1xx_DFP.2.3.0",
   "miscInfo": {
     "uid": "0d84804b32deff90b218a55e6ab4cfbf"
   },

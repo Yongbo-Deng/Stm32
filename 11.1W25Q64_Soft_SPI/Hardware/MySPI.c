@@ -24,6 +24,7 @@ void MySPI_Init(void) {
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4 | GPIO_Pin_5 | GPIO_Pin_7; // SS:Pin4  SCK:Pin5  MOSI:Pin7
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
+    
     GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_6;  //MISO: Pin6
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
     GPIO_Init(GPIOA, &GPIO_InitStructure);
@@ -41,7 +42,7 @@ void MySPI_Stop(void) {
 }
 
 uint8_t MySPI_SwapByte(uint8_t ByteSend) {      //Mode 0.
-    for(uint8_t i = 7; i > 0; i ++) {
+    for(uint8_t i = 0; i < 8; i ++) {
         MySPI_W_MOSI(ByteSend & 0x80);
         ByteSend <<= 1;
         MySPI_W_SCK(1);
@@ -50,5 +51,6 @@ uint8_t MySPI_SwapByte(uint8_t ByteSend) {      //Mode 0.
         }
         MySPI_W_SCK(0);
     }
+    
     return ByteSend;
 }

@@ -5,7 +5,7 @@
 
 uint8_t MID;
 uint16_t DID;
-uint8_t ArrayWrite[] = {0x01, 0x02, 0x03, 0x04};
+uint8_t ArrayWrite[] = {0xff, 0xf1, 0x1f, 0x00};
 uint8_t ArrayRead[4];
 
 int main(void)
@@ -23,7 +23,13 @@ int main(void)
 
 	W25Q64_SectorErase(0x000000);
 	W25Q64_PageProgram(0x000000, ArrayWrite, 4);
+
 	W25Q64_ReadData(0x000000, ArrayRead, 4);
+
+	OLED_ShowHexNum(2, 3, ArrayWrite[0], 2);
+	OLED_ShowHexNum(2, 6, ArrayWrite[1], 2);
+	OLED_ShowHexNum(2, 9, ArrayWrite[2], 2);
+	OLED_ShowHexNum(2, 12, ArrayWrite[3], 2);
 	
 	OLED_ShowHexNum(3, 3, ArrayRead[0], 2);
 	OLED_ShowHexNum(3, 6, ArrayRead[1], 2);
