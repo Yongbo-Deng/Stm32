@@ -13,7 +13,7 @@ int main(void)
 	MyRTC_Init();
 	
 	OLED_ShowString(1, 1, "Date:yyyy-mm-dd");
-	OLED_ShowString(2, 1, "Time:hh:mm:ss");
+	OLED_ShowString(2, 1, "Time:hh:mm:ss");		//Unknown BUG: One time, every 1.5 second, ss+1.
 	OLED_ShowString(3, 1, "CNT :");
 	OLED_ShowString(4, 1, "DIV :");
 

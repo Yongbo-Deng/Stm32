@@ -2,8 +2,7 @@
 #include "Delay.h"
 #include "OLED.h"
 
-int main(void)
-{
+int main(void) {
 	OLED_Init();
 	
 	OLED_ShowChar(1, 1, 'A');
