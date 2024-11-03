@@ -210,12 +210,6 @@
           },
           {
             "path": "Hardware/OLED_Font.h"
-          },
-          {
-            "path": "Hardware/Serial.c"
-          },
-          {
-            "path": "Hardware/Serial.h"
           }
         ],
         "folders": []
